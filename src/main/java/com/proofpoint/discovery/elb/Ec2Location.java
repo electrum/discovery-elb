@@ -27,10 +27,9 @@ import static com.google.common.base.Objects.equal;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * EC2 Galaxy location: {@code ec2/region/zone/instance/slot}
+ * EC2 Galaxy location: {@code /ec2/region/zone/instance/slot}
  */
 @Immutable
-@SuppressWarnings("UnusedDeclaration")
 public class Ec2Location
 {
     private final String region;
@@ -104,12 +103,16 @@ public class Ec2Location
     public static Ec2Location valueOf(String location)
             throws IllegalArgumentException
     {
-        List<String> parts = ImmutableList.copyOf(Splitter.on('/').split(location).iterator());
-        if (parts.size() != 5) {
-            throw new IllegalArgumentException("wrong number of parts");
+        if (!location.startsWith("/")) {
+            throw new IllegalArgumentException("location must start with a slash");
         }
+        location = location.substring(1);
+        List<String> parts = ImmutableList.copyOf(Splitter.on('/').split(location).iterator());
         if (!parts.get(0).equals("ec2")) {
             throw new IllegalArgumentException("not an EC2 location");
+        }
+        if (parts.size() != 5) {
+            throw new IllegalArgumentException("wrong number of parts");
         }
         return new Ec2Location(parts.get(1), parts.get(2), parts.get(3), parts.get(4));
     }

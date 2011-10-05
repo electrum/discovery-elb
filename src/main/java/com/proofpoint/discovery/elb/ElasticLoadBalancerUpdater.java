@@ -166,8 +166,7 @@ public class ElasticLoadBalancerUpdater
 
     private static boolean serviceExistsForListener(Listener listener, Map<String, String> properties)
     {
-        // TODO: use instanceProtocol when supported by AWS library
-        String protocol = listener.getProtocol().toLowerCase();
+        String protocol = listener.getInstanceProtocol().toLowerCase();
         if ((!protocol.equals("http")) && (!protocol.equals("https"))) {
             return false;
         }

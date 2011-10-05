@@ -108,7 +108,7 @@ public class ElasticLoadBalancerUpdater
             // split ELB name into parts
             String elbName = loadBalancer.getLoadBalancerName();
             List<String> parts = copyOf(Splitter.on('-').split(elbName).iterator());
-            if (parts.size() != 3) {
+            if (parts.size() != 3 && parts.size() != 4) {
                 log.debug("ignoring load balancer: %s", elbName);
                 continue;
             }

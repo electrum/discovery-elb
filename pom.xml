@@ -15,6 +15,11 @@
     <groupId>com.proofpoint.discovery</groupId>
     <artifactId>elb</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <scm>
+        <connection>scm:git:git://github.com/proofpoint/discovery-elb.git</connection>
+        <developerConnection>scm:git:git@github.com:proofpoint/discovery-elb.git</developerConnection>
+        <url>http://github.com/proofpoint/discovery-elb</url>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>

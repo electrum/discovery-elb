@@ -25,7 +25,8 @@ import com.amazonaws.services.elasticloadbalancing.model.RegisterInstancesWithLo
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.proofpoint.discovery.client.DiscoveryClient;
+import com.proofpoint.discovery.client.DiscoveryAnnouncementClient;
+import com.proofpoint.discovery.client.DiscoveryLookupClient;
 import com.proofpoint.discovery.client.ServiceDescriptor;
 import com.proofpoint.discovery.client.ServiceDescriptors;
 import com.proofpoint.log.Logger;
@@ -62,11 +63,11 @@ public class ElasticLoadBalancerUpdater
 
     private final AmazonElasticLoadBalancing elbClient;
     private final NodeInfo nodeInfo;
-    private final DiscoveryClient discoveryClient;
+    private final DiscoveryLookupClient discoveryClient;
     private final Duration updateInterval;
 
     @Inject
-    public ElasticLoadBalancerUpdater(AmazonElasticLoadBalancing elbClient, NodeInfo nodeInfo, DiscoveryClient discoveryClient, ServerConfig config)
+    public ElasticLoadBalancerUpdater(AmazonElasticLoadBalancing elbClient, NodeInfo nodeInfo, DiscoveryLookupClient discoveryClient, ServerConfig config)
     {
         this.elbClient = checkNotNull(elbClient, "elbClient is null");
         this.nodeInfo = checkNotNull(nodeInfo, "nodeInfo is null");

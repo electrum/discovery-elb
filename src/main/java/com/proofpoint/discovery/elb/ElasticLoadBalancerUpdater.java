@@ -25,7 +25,6 @@ import com.amazonaws.services.elasticloadbalancing.model.RegisterInstancesWithLo
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.proofpoint.discovery.client.DiscoveryAnnouncementClient;
 import com.proofpoint.discovery.client.DiscoveryLookupClient;
 import com.proofpoint.discovery.client.ServiceDescriptor;
 import com.proofpoint.discovery.client.ServiceDescriptors;

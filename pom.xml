@@ -185,18 +185,12 @@
                 </executions>
             </plugin>
 
-            <!-- TODO: remove when this is added to rest-server-base pom -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <arguments>-Psonatype-oss-release</arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

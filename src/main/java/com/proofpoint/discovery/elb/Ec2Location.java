@@ -27,7 +27,7 @@ import static com.google.common.base.Objects.equal;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * EC2 Galaxy location: {@code /ec2/region/zone/instance/slot}
+ * EC2 Galaxy location: {@code /ec2/region/zone/instance/agent/installation}
  */
 @Immutable
 public class Ec2Location
@@ -35,14 +35,16 @@ public class Ec2Location
     private final String region;
     private final String availabilityZone;
     private final String instanceId;
-    private final String slot;
+    private final String agent;
+    private final String installation;
 
-    public Ec2Location(String region, String availabilityZone, String instanceId, String slot)
+    public Ec2Location(String region, String availabilityZone, String instanceId, String agent, String installation)
     {
         this.region = checkNotNull(region, "region is null");
         this.availabilityZone = checkNotNull(availabilityZone, "availabilityZone is null");
         this.instanceId = checkNotNull(instanceId, "instanceId is null");
-        this.slot = checkNotNull(slot, "slot is null");
+        this.agent = checkNotNull(agent, "agent is null");
+        this.installation = checkNotNull(installation, "installation is null");
     }
 
     public String getRegion()
@@ -60,9 +62,14 @@ public class Ec2Location
         return instanceId;
     }
 
-    public String getSlot()
+    public String getAgent()
     {
-        return slot;
+        return agent;
+    }
+
+    public String getInstallation()
+    {
+        return installation;
     }
 
     @Override
@@ -78,19 +85,20 @@ public class Ec2Location
         return equal(region, x.region) &&
                 equal(availabilityZone, x.availabilityZone) &&
                 equal(instanceId, x.instanceId) &&
-                equal(slot, x.slot);
+                equal(agent, x.agent) &&
+                equal(installation, x.installation);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hashCode(region, availabilityZone, instanceId, slot);
+        return Objects.hashCode(region, availabilityZone, instanceId, agent, installation);
     }
 
     @Override
     public String toString()
     {
-        return Joiner.on('/').join("ec2", region, availabilityZone, instanceId, slot);
+        return Joiner.on('/').join("ec2", region, availabilityZone, instanceId, agent, installation);
     }
 
     /**
@@ -111,9 +119,9 @@ public class Ec2Location
         if (!parts.get(0).equals("ec2")) {
             throw new IllegalArgumentException("not an EC2 location");
         }
-        if (parts.size() != 5) {
+        if (parts.size() != 6) {
             throw new IllegalArgumentException("wrong number of parts");
         }
-        return new Ec2Location(parts.get(1), parts.get(2), parts.get(3), parts.get(4));
+        return new Ec2Location(parts.get(1), parts.get(2), parts.get(3), parts.get(4), parts.get(5));
     }
 }

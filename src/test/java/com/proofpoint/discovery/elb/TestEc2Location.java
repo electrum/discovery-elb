@@ -24,11 +24,12 @@ public class TestEc2Location
     @Test
     public void testParseLocation()
     {
-        Ec2Location location = Ec2Location.valueOf("/ec2/us-east-1/us-east-1a/i-3ea74257/discovery");
+        Ec2Location location = Ec2Location.valueOf("/ec2/us-east-1/us-east-1a/i-3ea74257/agent/discovery");
         assertEquals(location.getRegion(), "us-east-1");
         assertEquals(location.getAvailabilityZone(), "us-east-1a");
         assertEquals(location.getInstanceId(), "i-3ea74257");
-        assertEquals(location.getSlot(), "discovery");
+        assertEquals(location.getAgent(), "agent");
+        assertEquals(location.getInstallation(), "discovery");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "location must start with a slash")
@@ -46,12 +47,12 @@ public class TestEc2Location
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "wrong number of parts")
     public void testTooFewParts()
     {
-        Ec2Location.valueOf("/ec2/abc/xyz/123");
+        Ec2Location.valueOf("/ec2/region/zone/instance/agent");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "wrong number of parts")
     public void testTooManyParts()
     {
-        Ec2Location.valueOf("/ec2/abc/xyz/123/foo/bar");
+        Ec2Location.valueOf("/ec2/region/zone/instance/agent/installation/extra");
     }
 }
